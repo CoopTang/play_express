@@ -10,16 +10,14 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds/dev'
-    },
-    useNullAsDefault: true
+    }
   },
   test: {
     client: 'pg',
     connection: 'postgres://localhost/play_express_test',
     migrations: {
       directory: './db/migrations'
-    },
-    useNullAsDefault: true
+    }
   },
   production: {
     client: 'pg',
@@ -29,7 +27,6 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds/dev'
-    },
-    useNullAsDefault: true
+    }
   }
 };
