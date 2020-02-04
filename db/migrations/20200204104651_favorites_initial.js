@@ -3,7 +3,7 @@ exports.up = function(knex) {
     knex.schema.createTable('favorites', function(table) {
       table.increments('id').primary();
       table.string('title');
-      table.string('artist_name');
+      table.string('artistName');
       table.string('genre').notNullable().defaultTo('Unknown');
       table.integer('rating').notNullable().defaultTo(0);
 
