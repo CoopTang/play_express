@@ -44,6 +44,9 @@ describe('Test the favorites path', () => {
           artistName: ''
         });
 
+      let favorites = await database('favorites').select()
+      expect(favorites.length).toBe(0);
+
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty('message');
       expect(res.body.message).toBe("Invalid request body");
