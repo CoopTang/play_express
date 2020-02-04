@@ -5,7 +5,7 @@ exports.up = function(knex) {
       table.string('title');
       table.string('artist_name');
       table.string('genre').notNullable().defaultTo('Unknown');
-      table.integer('rating');
+      table.integer('rating').notNullable().defaultTo(0);
 
       table.timestamps(true, true);
     })
