@@ -27,7 +27,6 @@ describe('Test the favorites path', () => {
   describe('test favorites index', () => {
     it('happy path', async () => {
       const favorite = await database('favorites').select()
-      console.log(favorite)
       const res = await request(app)
         .get("/api/v1/favorites");
 
