@@ -22,7 +22,7 @@ describe('Test the favorites path', () => {
         .post("/api/v1/favorites")
         .send({
           title: 'We Will Rock You',
-          artist: 'Queen'
+          artistName: 'Queen'
         });
 
       let favorites = await database('favorites').select()
@@ -41,7 +41,7 @@ describe('Test the favorites path', () => {
         .post("/api/v1/favorites")
         .send({
           title: '',
-          artist: ''
+          artistName: ''
         });
 
       expect(res.statusCode).toBe(400);
