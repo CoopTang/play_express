@@ -46,6 +46,7 @@ describe('Test the favorites path', () => {
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty('message');
+      expect(res.body.message).toBe("Invalid request body");
     });
   });
 });
