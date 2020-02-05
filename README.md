@@ -1,6 +1,6 @@
 
-# Sweater Weather
-A back-end api that exposes endpoints for the weather of a location, and the favorite location of users
+# Play
+A back-end api that exposes endpoints for favorite songs added from the Musix Match API
 
 ## Tech/framework used
 <b>Built with</b>
@@ -20,178 +20,115 @@ All endpoints require the following headers:
 
 ---
 
-### Forecast
-`GET /api/v1/forecast?location=<LOCATION>`
+### All Favorites
+`GET /api/v1/favorites`
 
-This endpoint requires a body with the following format:
-```json
-{
-	"api_key": "<YOUR API KEY>"
-}
+Returns a list of all favorites
 
-Returns the current weather, the weather for the next 48 hours, and the weather for the next week. The user will get the following response:
-```json
-{
-    "location": "Denver, CO, USA",
-    "currently": {
-        "summary": "Clear",
-        "icon": "clear-night",
-        "precipIntensity": 0,
-        "precipProbability": 0,
-        "temperature": 49.57,
-        "humidity": 0.2,
-        "pressure": 998,
-        "windSpeed": 3.05,
-        "windGust": 10.35,
-        "windBearing": 178,
-        "cloudCover": 0.29,
-        "visibility": 10
-    },
-    "hourly": {
-        "summary": "Foggy tomorrow afternoon and evening.",
-        "icon": "snow",
-        "data": [
-            {
-                "time": 1580702400,
-                "summary": "Clear",
-                "icon": "clear-night",
-                "precipIntensity": 0,
-                "precipProbability": 0,
-                "temperature": 51.51,
-                "humidity": 0.19,
-                "pressure": 997.4,
-                "windSpeed": 3.95,
-                "windGust": 11.37,
-                "windBearing": 178,
-                "cloudCover": 0.22,
-                "visibility": 10
-            },
-        ]
-    },
-    "daily": {
-        "summary": "Possible light snow tomorrow.",
-        "icon": "snow",
-        "data": [
-            {
-                "sunriseTime": 1580652480,
-                "time": 1580626800,
-                "icon": "clear-day",
-                "summary": "Clear throughout the day.",
-                "sunsetTime": 1580689260,
-                "precipIntensity": 0.0002,
-                "precipIntensityMax": 0.002,
-                "precipIntensityMaxTime": 1580709540,
-                "precipProbability": 0.06,
-                "precipType": "rain",
-                "temperatureHigh": 74.6,
-                "temperatureLow": 29.46,
-                "humidity": 0.16,
-                "pressure": 1006.1,
-                "windSpeed": 6.86,
-                "windGust": 23.85,
-                "cloudCover": 0.19,
-                "visibility": 10,
-                "temperatureMin": 40.71,
-                "temperatureMax": 74.6
-            },
-        ]
-    }
-}
-```
-
----
-
-### User Favorite Creation
-`POST /api/v1/favorites`
-
-This endpoint requires a body with the following format:
-```json
-{
-	"location": "Denver, CO",
-	"api_key": "<YOUR API KEY>"
-}
-```
-If the registration is successful, the user will get the following response body:
-
-```json
-{
-    "message": "Boulder, CO has been added to your favorites"
-}
-```
-
-An unsuccessful registration will return a response stating the reason in the folloiwng format:
-```json
-{
-  "message": "Unauthorized"
-}
-```
-
----
-
-### User Favorite List
-`POST /api/v1/favorites`
-
-This endpoint requires a body with the following format:
-```json
-{
-	"api_key": "<YOUR API KEY"
-}
-```
-
-A successful response will look like the following:
-
+**Successful Response**
 ```json
 [
-    {
-        "location": "Denver, CO",
-        "current_weather": {
-            "summary": "Mostly Cloudy",
-            "icon": "partly-cloudy-night",
-            "precipIntensity": 0,
-            "precipProbability": 0,
-            "temperature": 45.22,
-            "humidity": 0.81,
-            "pressure": 1007.6,
-            "windSpeed": 1.31,
-            "windGust": 3.52,
-            "windBearing": 278,
-            "cloudCover": 0.61,
-            "visibility": 10
-        }
-    },
-    {
-        "location": "Boulder, CO",
-        "current_weather": {
-            "summary": "Mostly Cloudy",
-            "icon": "partly-cloudy-night",
-            "precipIntensity": 0,
-            "precipProbability": 0,
-            "temperature": 45.22,
-            "humidity": 0.81,
-            "pressure": 1007.6,
-            "windSpeed": 1.31,
-            "windGust": 3.52,
-            "windBearing": 278,
-            "cloudCover": 0.61,
-            "visibility": 10
-        }
-    }
+  {
+    "id": 1,
+    "title": "We Will Rock You",
+    "artistName": "Queen",
+    "genre": "Rock",
+    "rating": 88
+  },
+  {
+    "id": 2,
+    "title": "Careless Whisper",
+    "artistName": "George Michael",
+    "genre": "Pop",
+    "rating": 93
+  },
 ]
+```
+
+**Unsuccessful Response**
+
+---
+
+### Favorite Creation
+`POST /api/v1/favorites`
+
+Adds a favorite song to the database
+
+This endpoint requires a body with the following format:
+```json
+{
+  "title": "We Will Rock You", 
+  "artistName": "Queen"
+}
+```
+
+**Successful Response**
+
+
+Status Code: 200
+```json
+{
+  "id": 1,
+  "title": "We Will Rock You",
+  "artistName": "Queen",
+  "genre": "Rock",
+  "rating": 88
+}
+```
+
+**Unsuccessful Response**
+
+Status Code: 400
+```json
+{
+  "message": "<REASON>"
+}
+```
+
+---
+
+### Single Favorite
+`GET /api/v1/favorites/:id`
+
+Returns the favorite corresponding to `:id`
+
+
+**Successful Response**
+
+
+Status Code: 200
+```json
+{
+     "id": 1,
+    "title": "We Will Rock You",
+    "artistName": "Queen",
+    "genre": "Rock",
+    "rating": 88 
+}
+```
+**Unsuccessful Response**
+
+Status Code: 404
+```json
+{
+  "message": "Favorite does not exist!"
+}
 ```
 
 ---
 
 ### User Favorite Deletion
-`DELETE /api/v1/favorites`
+`DELETE /api/v1/favorites/:id`
+Deletes the favorite from the database with the corresponding `:id`
 
-This endpoint requires a body with the following format:
-```json
-{
-	"location": "Boulder, CO",
-	"api_key": "<YOUR API KEY>"
-}
-```
+**Successful Response**
 
-A successful response will return a 204 status code.
+
+Status Code: 204
+
+**Unsuccessful Response**
+
+Status Code: 404
+
 
 ---
