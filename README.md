@@ -129,6 +129,10 @@ Status Code: 204
 **Unsuccessful Response**
 
 Status Code: 404
-
+```json
+{
+  "message": "Favorite does not exist!"
+}
+```
 
 ---
