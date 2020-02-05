@@ -35,15 +35,19 @@ describe('Test the favorites path', () => {
       expect(res.statusCode).toBe(204);
 
       const favorites = await database('favorites').select()
-      expect(favorites.count).toBe(0);
+      expect(favorites.length).toBe(0);
     });
-
+    
     it('sad path', async () => {
       const res = await request(app)
-        .delete(`/api/v1/favorites/9999`)
-
+      .delete(`/api/v1/favorites/9999`)
+      
       expect(res.statusCode).toBe(404);
       expect(res.body).toHaveProperty('message');
+      expect(res.body.message).toBe('Favorite does not exist!');
+
+      const favorites = await database('favorites').select()
+      expect(favorites.length).toBe(1);
     });
   });
 });
