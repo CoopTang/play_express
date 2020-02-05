@@ -22,7 +22,7 @@ describe('Test the favorites path', () => {
         .post("/api/v1/favorites")
         .send({
           title: 'We Will Rock You',
-          artist: 'Queen'
+          artistName: 'Queen'
         });
 
       let favorites = await database('favorites').select()
@@ -41,11 +41,15 @@ describe('Test the favorites path', () => {
         .post("/api/v1/favorites")
         .send({
           title: '',
-          artist: ''
+          artistName: ''
         });
+
+      let favorites = await database('favorites').select()
+      expect(favorites.length).toBe(0);
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty('message');
+      expect(res.body.message).toBe("Invalid request body");
     });
   });
 });
