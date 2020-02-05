@@ -31,18 +31,16 @@ describe('Test the favorites path', () => {
 
       const res = await request(app)
         .delete(`/api/v1/favorites/${favorite.id}`)
-        .send();
 
       expect(res.statusCode).toBe(204);
 
-      const deleted_favorite = await database('favorites').first()
-      expect(deleted_favorite).toBe(Undefined);
+      const favorites = await database('favorites').select()
+      expect(favorites.count).toBe(0);
     });
 
     it('sad path', async () => {
       const res = await request(app)
         .delete(`/api/v1/favorites/9999`)
-        .send();
 
       expect(res.statusCode).toBe(404);
       expect(res.body).toHaveProperty('message');
