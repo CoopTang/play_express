@@ -14,8 +14,7 @@
     "knex": "^0.19.5",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.0",
-    "pg": "^7.8.0",
-    "pryjs": "^1.0.3"
+    "pg": "^7.8.0"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",
