@@ -48,6 +48,8 @@ describe('Test the favorites path', () => {
       expect(res.body[0].genre).toBe('Rock');
       expect(res.body[0]).toHaveProperty('rating');
       expect(res.body[0].rating).toBe(88);
+      expect(res.body[0]).not.toHaveProperty('created_at');
+      expect(res.body[0]).not.toHaveProperty('updated_at');
 
       expect(res.body[1]).toHaveProperty('id');
       expect(res.body[1]).toHaveProperty('title');
@@ -58,6 +60,8 @@ describe('Test the favorites path', () => {
       expect(res.body[1].genre).toBe('Rock');
       expect(res.body[1]).toHaveProperty('rating');
       expect(res.body[1].rating).toBe(100);
+      expect(res.body[1]).not.toHaveProperty('created_at');
+      expect(res.body[1]).not.toHaveProperty('updated_at');
     });
   });
 });
