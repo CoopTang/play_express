@@ -21,8 +21,8 @@ describe('Test the favorites path', () => {
       const res = await request(app)
         .post("/api/v1/favorites")
         .send({
-          title: 'We Will Rock You',
-          artistName: 'Queen'
+          title: 'Sweet Emotion',
+          artistName: 'Aerosmith'
         });
 
       let favorites = await database('favorites').select()
