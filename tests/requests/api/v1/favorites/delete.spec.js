@@ -44,7 +44,7 @@ describe('Test the favorites path', () => {
       
       expect(res.statusCode).toBe(404);
       expect(res.body).toHaveProperty('message');
-      expect(res.body.message).toBe('Favorite does not exist!');
+      expect(res.body.message).toBe("Favorite with that ID does not exist!");
 
       const favorites = await database('favorites').select()
       expect(favorites.length).toBe(1);

@@ -111,7 +111,7 @@ Status Code: 200
 Status Code: 404
 ```json
 {
-  "message": "Favorite does not exist!"
+  "message": "Favorite with that ID does not exist!"
 }
 ```
 
@@ -131,7 +131,7 @@ Status Code: 204
 Status Code: 404
 ```json
 {
-  "message": "Favorite does not exist!"
+  "message": "Favorite with that ID does not exist!"
 }
 ```
 
