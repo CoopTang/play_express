@@ -41,6 +41,8 @@ describe('Test the favorites path', () => {
       expect(res.body.genre).toBe('Rock');
       expect(res.body).toHaveProperty('rating');
       expect(res.body.rating).toBe(88);
+      expect(res.body).not.toHaveProperty('created_at');
+      expect(res.body).not.toHaveProperty('updated_at');
     });
 
     it('sad path', async () => {
