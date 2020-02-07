@@ -150,3 +150,132 @@ Status Code: 404
 ```
 
 ---
+
+### All Playlists
+`GET /api/v1/playlists`
+
+Returns a list of all playlists
+
+**Successful Response**
+
+Status Code: 200
+```
+[
+  {
+    "id": 1,
+    "title": "Cleaning House",
+    "createdAt": 2019-11-26T16:03:43+00:00,
+    "updatedAt": 2019-11-26T16:03:43+00:00
+  },
+  {
+    "id": 2,
+    "title": "Running Mix",
+    "createdAt": 2019-11-26T16:03:43+00:00,
+    "updatedAt": 2019-11-26T16:03:43+00:00
+  },
+]
+```
+
+Successful response with no playlists in the database:
+```
+[]
+```
+
+**Unsuccessful Response**
+
+Status Code: 500
+```json
+{
+  "message": "<REASON>"
+}
+```
+
+---
+
+### Playlist Creation
+`POST /api/v1/playlists`
+
+Adds a playlist to the database
+
+This endpoint requires a body with the following format:
+```
+{
+  "title": "Cleaning House"
+}
+```
+
+**Successful Response**
+
+
+Status Code: 20`
+```json
+{
+  "id": 1,
+  "title": "Cleaning House",
+  "createdAt": 2019-11-26T16:03:43+00:00,
+  "updatedAt": 2019-11-26T16:03:43+00:00,
+}
+
+```
+
+**Unsuccessful Response**
+
+Status Code: 400
+```json
+{
+  "message": "<REASON>"
+}
+```
+
+---
+
+### Single Favorite
+`GET /api/v1/favorites/:id`
+
+Returns the favorite corresponding to `:id`
+
+
+**Successful Response**
+
+
+Status Code: 200
+```json
+{
+     "id": 1,
+    "title": "We Will Rock You",
+    "artistName": "Queen",
+    "genre": "Rock",
+    "rating": 88 
+}
+```
+**Unsuccessful Response**
+
+Status Code: 404
+```json
+{
+  "message": "Favorite with that ID does not exist!"
+}
+```
+
+---
+
+### User Favorite Deletion
+`DELETE /api/v1/favorites/:id`
+Deletes the favorite from the database with the corresponding `:id`
+
+**Successful Response**
+
+
+Status Code: 204
+
+**Unsuccessful Response**
+
+Status Code: 404
+```json
+{
+  "message": "Favorite with that ID does not exist!"
+}
+```
+
+---
+
