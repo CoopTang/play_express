@@ -1,4 +1,3 @@
-
 exports.seed = function(knex) {
   // Deletes ALL existing entries
   return knex('favorites').del()
@@ -9,6 +8,15 @@ exports.seed = function(knex) {
         { title: 'Coming Home', artistName: 'Leon Bridges', rating: 90, genre: 'Soul' },
         { title: 'Africa', artistName: 'Toto', rating: 92 },
         { title: 'Fur Elise', artistName: 'Ludwig Van Beethoven' }
+      ]);
+    });
+  return knex('playlists').del()
+    .then(function () {
+      // Inserts seed entries
+      return knex('playlists').insert([
+        { title: 'Work Out'  },
+        { title: 'Chill Out' },
+        { title: 'Far Out'   }
       ]);
     });
 };
