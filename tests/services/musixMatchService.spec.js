@@ -1,6 +1,6 @@
 var shell = require('shelljs');
 var request = require("supertest");
-var musixMatchService = require('../../lib/services/musix_match_service');
+var musixMatchService = require('../../lib/services/musixMatchService');
 
 describe('Test ', () => {
   test('It should get a json response from the MusixMatch API', async () => {
