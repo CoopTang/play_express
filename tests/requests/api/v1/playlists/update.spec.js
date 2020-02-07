@@ -48,20 +48,28 @@ describe('Test the playlists path', () => {
       it('id does not exist in database', async () => {
         const res = await request(app)
           .put(`/api/v1/playlists/9999`)
+          .send({
+            "title": "I hate running"
+          })
   
         expect(res.statusCode).toBe(404);
-        expect(res.body.message).toBe('Favorite with that ID does not exist!');
+        expect(res.body.message).toBe('Playlist with that ID does not exist!');
       });
 
       it('id must be a number', async () => {
         const res = await request(app)
           .put(`/api/v1/playlists/asdf`)
+          .send({
+            "title": "I hate running"
+          })
   
         expect(res.statusCode).toBe(500)
         expect(res.body.message).toBe("ID must be a number!")
       });
 
       it('must have a valid request body', async () => {
+        const playlist = await database('playlists').first()
+
         const res = await request(app)
           .put(`/api/v1/playlists/${playlist.id}`)
           .send({
@@ -69,7 +77,6 @@ describe('Test the playlists path', () => {
           })
 
         let favorites = await database('favorites').select()
-        expect(favorites.length).toBe(0);
 
         expect(res.statusCode).toBe(500);
         expect(res.body).toHaveProperty('message');
