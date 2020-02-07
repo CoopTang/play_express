@@ -40,7 +40,7 @@ describe('Test the playlists path', () => {
           .delete(`/api/v1/playlists/9999`)
   
         expect(res.statusCode).toBe(404);
-        expect(res.body.message).toBe('Favorite with that ID does not exist!');
+        expect(res.body.message).toBe('Playlist with that ID does not exist!');
       });
 
       it('id must be a number', async () => {
