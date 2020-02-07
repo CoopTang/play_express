@@ -51,7 +51,7 @@ describe('Test the favorites path', () => {
           .get(`/api/v1/favorites/9999`)
   
         expect(res.statusCode).toBe(404);
-        expect(res.body).toBe('There are no Favorites with that ID');
+        expect(res.body.message).toBe('Favorite with that ID does not exist!');
       });
 
       it('id must be a number', async () => {
