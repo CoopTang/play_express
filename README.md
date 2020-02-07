@@ -150,3 +150,158 @@ Status Code: 404
 ```
 
 ---
+
+### All Playlists
+`GET /api/v1/playlists`
+
+Returns a list of all playlists
+
+**Successful Response**
+
+Status Code: 200
+```
+[
+  {
+    "id": 1,
+    "title": "Cleaning House",
+    "createdAt": 2019-11-26T16:03:43+00:00,
+    "updatedAt": 2019-11-26T16:03:43+00:00
+  },
+  {
+    "id": 2,
+    "title": "Running Mix",
+    "createdAt": 2019-11-26T16:03:43+00:00,
+    "updatedAt": 2019-11-26T16:03:43+00:00
+  },
+]
+```
+
+Successful response with no playlists in the database:
+```
+[]
+```
+
+**Unsuccessful Response**
+
+Status Code: 500
+```json
+{
+  "message": "<REASON>"
+}
+```
+
+---
+
+### Playlist Creation
+`POST /api/v1/playlists`
+
+Adds a playlist to the database
+
+This endpoint requires a body with the following format:
+```
+{
+  "title": "Cleaning House"
+}
+```
+
+**Successful Response**
+
+
+Status Code: 201`
+```
+{
+  "id": 1,
+  "title": "Cleaning House",
+  "createdAt": 2019-11-26T16:03:43+00:00,
+  "updatedAt": 2019-11-26T16:03:43+00:00,
+}
+
+```
+
+**Unsuccessful Response**
+
+Status Code: 400
+```json
+{
+  "message": "<REASON>"
+}
+```
+
+---
+
+### Update Playlist
+`PUT /api/v1/playlists/:id`
+
+Updates the playlist with the corresponding `:id`
+
+This endpoint requires a request body with the following format:
+
+```
+{
+  "title": "<NEW TITLE>"
+}
+```
+
+**Successful Response**
+Status code 200
+```
+{
+  "id": 2,
+  "title": "<NEW TITLE>",
+  "createdAt": 2019-11-26T16:03:43+00:00,
+  "updatedAt": <NEW UPDATED TIMESTAMP>
+}
+```
+
+**Unsuccessful Response: No playlist with corresponding id**
+Status code 404
+```
+{
+  "message": "Favorite with that ID does not exist!"
+}
+```
+
+**Unsuccessful Response: id is not a number**
+Status code 500
+```
+{
+  "message": "ID must be a number!"
+}
+```
+
+**Unsuccessful Response: invalid request body**
+Status code 500
+```
+{
+  "message": "Invalid request body"
+}
+```
+
+---
+
+### Playlist Deletion
+`DELETE /api/v1/playlists/:id`
+Deletes the playlist from the database with the corresponding `:id`
+
+**Successful Response**
+
+Status Code: 204
+
+**Unsuccessful Response: No playlist with corresponding id**
+Status code 404
+```
+{
+  "message": "Favorite with that ID does not exist!"
+}
+```
+
+**Unsuccessful Response: id is not a number**
+Status code 500
+```
+{
+  "message": "ID must be a number!"
+}
+```
+
+---
+
