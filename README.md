@@ -257,7 +257,7 @@ Status code 200
 Status code 404
 ```
 {
-  "message": "Favorite with that ID does not exist!"
+  "message": "Playlist with that ID does not exist!"
 }
 ```
 
@@ -291,7 +291,7 @@ Status Code: 204
 Status code 404
 ```
 {
-  "message": "Favorite with that ID does not exist!"
+  "message": "Playlist with that ID does not exist!"
 }
 ```
 
