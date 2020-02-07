@@ -45,12 +45,22 @@ describe('Test the favorites path', () => {
       expect(res.body).not.toHaveProperty('updated_at');
     });
 
-    it('sad path', async () => {
-      const res = await request(app)
-        .get(`/api/v1/favorites/9999`)
+    describe('sad path', () => {
+      it('id does not exist in database', async () => {
+        const res = await request(app)
+          .get(`/api/v1/favorites/9999`)
+  
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toBe('There are no Favorites with that ID');
+      });
 
-      expect(res.statusCode).toBe(404);
-      expect(res.body.message).toBe("Favorite with that ID does not exist!");
+      it('id must be a number', async () => {
+        const res = await request(app)
+          .get(`/api/v1/favorites/asdf`)
+  
+        expect(res.statusCode).toBe(500)
+        expect(res.body.message).toBe("ID must be a number!")
+      })
     });
   });
 });
