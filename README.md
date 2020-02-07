@@ -207,8 +207,8 @@ This endpoint requires a body with the following format:
 **Successful Response**
 
 
-Status Code: 20`
-```json
+Status Code: 201`
+```
 {
   "id": 1,
   "title": "Cleaning House",
@@ -229,51 +229,77 @@ Status Code: 400
 
 ---
 
-### Single Favorite
-`GET /api/v1/favorites/:id`
+### Update Playlist
+`PUT /api/v1/playlists/:id`
 
-Returns the favorite corresponding to `:id`
+Updates the playlist with the corresponding `:id`
 
+This endpoint requires a request body with the following format:
 
-**Successful Response**
-
-
-Status Code: 200
-```json
+```
 {
-     "id": 1,
-    "title": "We Will Rock You",
-    "artistName": "Queen",
-    "genre": "Rock",
-    "rating": 88 
+  "title": "<NEW TITLE>"
 }
 ```
-**Unsuccessful Response**
 
-Status Code: 404
-```json
+**Successful Response**
+Status code 200
+```
+{
+  "id": 2,
+  "title": "<NEW TITLE>",
+  "createdAt": 2019-11-26T16:03:43+00:00,
+  "updatedAt": <NEW UPDATED TIMESTAMP>
+}
+```
+
+**Unsuccessful Response: No playlist with corresponding id**
+Status code 404
+```
 {
   "message": "Favorite with that ID does not exist!"
+}
+```
+
+**Unsuccessful Response: id is not a number**
+Status code 500
+```
+{
+  "message": "ID must be a number!"
+}
+```
+
+**Unsuccessful Response: invalid request body**
+Status code 500
+```
+{
+  "message": "Invalid request body"
 }
 ```
 
 ---
 
-### User Favorite Deletion
-`DELETE /api/v1/favorites/:id`
-Deletes the favorite from the database with the corresponding `:id`
+### Playlist Deletion
+`DELETE /api/v1/playlists/:id`
+Deletes the playlist from the database with the corresponding `:id`
 
 **Successful Response**
 
-
 Status Code: 204
 
-**Unsuccessful Response**
-
-Status Code: 404
-```json
+**Unsuccessful Response: No playlist with corresponding id**
+Status code 404
+```
 {
   "message": "Favorite with that ID does not exist!"
+}
+```
+
+**Unsuccessful Response: id is not a number**
+Status code 500
+```
+{
+  "message": "ID must be a number!"
 }
 ```
 
