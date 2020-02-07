@@ -26,6 +26,8 @@ All endpoints require the following headers:
 Returns a list of all favorites
 
 **Successful Response**
+
+Status Code: 200
 ```json
 [
   {
@@ -45,7 +47,19 @@ Returns a list of all favorites
 ]
 ```
 
+Successful response with no favorites in the database:
+```json
+[]
+```
+
 **Unsuccessful Response**
+
+Status Code: 500
+```json
+{
+  "message": "<REASON>"
+}
+```
 
 ---
 

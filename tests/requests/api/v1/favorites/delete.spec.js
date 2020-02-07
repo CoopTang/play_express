@@ -38,16 +38,22 @@ describe('Test the favorites path', () => {
       expect(favorites.length).toBe(0);
     });
     
-    it('sad path', async () => {
-      const res = await request(app)
-      .delete(`/api/v1/favorites/9999`)
-      
-      expect(res.statusCode).toBe(404);
-      expect(res.body).toHaveProperty('message');
-      expect(res.body.message).toBe("Favorite with that ID does not exist!");
+    describe('sad path', () => {
+      it('id does not exist in database', async () => {
+        const res = await request(app)
+          .delete(`/api/v1/favorites/9999`)
+  
+        expect(res.statusCode).toBe(404);
+        expect(res.body.message).toBe('Favorite with that ID does not exist!');
+      });
 
-      const favorites = await database('favorites').select()
-      expect(favorites.length).toBe(1);
+      it('id must be a number', async () => {
+        const res = await request(app)
+          .delete(`/api/v1/favorites/asdf`)
+  
+        expect(res.statusCode).toBe(500)
+        expect(res.body.message).toBe("ID must be a number!")
+      })
     });
   });
 });
