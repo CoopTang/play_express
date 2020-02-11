@@ -161,8 +161,6 @@ describe('Test the Playlists path', () => {
             notAKey: "asdf"
           })
 
-        let favorites = await database('favorites').select()
-
         expect(res.statusCode).toBe(500);
         expect(res.body).toHaveProperty('message');
         expect(res.body.message).toBe("Invalid request body");
