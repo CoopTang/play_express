@@ -9,19 +9,45 @@ const database = require('knex')(configuration);
 
 describe('Test the Playlists path', () => {
   beforeEach(async () => {
+    await database.raw('truncate table playlist_favorites cascade');
     await database.raw('truncate table playlists cascade');
-
+    await database.raw('truncate table favorites cascade');
+    
     await database('playlists').insert({ "title": "Coding Vibes" }, 'id');
     await database('playlists').insert({ "title": "Workout Mix"  }, 'id');
   });
-
+  
   afterEach(() => {
+    database.raw('truncate table playlist_favorites cascade');
     database.raw('truncate table playlists cascade');
+    database.raw('truncate table favorites cascade');
   });
 
   describe('Test Playlists Index', () => {
     it('happy path', async () => {
-      const playlist = await database('playlists').select()
+      let favoriteData_1 = {
+        "title": "We Will Rock You",
+        "artistName": "Queen",
+        "genre": "Rock",
+        "rating": 25
+      }
+      let favoriteData_2 = {
+        "title": "We are the Champions",
+        "artistName": "Queen",
+        "genre": "Rock",
+        "rating": 30
+      }
+      const playlists = await database('playlists').select()
+      const favorite1 = await database('favorites').insert(favoriteData_1, 'id');
+      const favorite2 = await database('favorites').insert(favoriteData_2, 'id');
+
+      await database('playlist_favorites')
+        .insert({playlistId: playlists[0].id, favoriteId: favorite1[0]});
+      await database('playlist_favorites')
+        .insert({playlistId: playlists[0].id, favoriteId: favorite2[0]});
+      await database('playlist_favorites')
+        .insert({playlistId: playlists[1].id, favoriteId: favorite1[0]});
+
       const res = await request(app)
         .get("/api/v1/playlists");
 
@@ -29,12 +55,22 @@ describe('Test the Playlists path', () => {
       expect(res.body.length).toBe(2);
       expect(res.body[0]).toHaveProperty('id');
       expect(res.body[0]).toHaveProperty('title');
+      expect(res.body[0]).toHaveProperty('songCount');
+      expect(res.body[0].songCount).toBe(2)
+      expect(res.body[0]).toHaveProperty('songAvgRating');
+      expect(res.body[0].songAvgRating).toBe(27.5);
+      expect(res.body[0]).toHaveProperty('favorites');
       expect(res.body[0].title).toBe('Coding Vibes');
       expect(res.body[0]).toHaveProperty('createdAt');
       expect(res.body[0]).toHaveProperty('updatedAt');
-
+      
       expect(res.body[1]).toHaveProperty('id');
       expect(res.body[1]).toHaveProperty('title');
+      expect(res.body[1]).toHaveProperty('songCount');
+      expect(res.body[1].songCount).toBe(1)
+      expect(res.body[1]).toHaveProperty('songAvgRating');
+      expect(res.body[1].songAvgRating).toBe(25.0);
+      expect(res.body[1]).toHaveProperty('favorites');
       expect(res.body[1].title).toBe('Workout Mix');
       expect(res.body[1]).toHaveProperty('createdAt');
       expect(res.body[1]).toHaveProperty('updatedAt');
