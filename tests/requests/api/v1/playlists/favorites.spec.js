@@ -12,7 +12,6 @@ describe('Test the Playlists path', () => {
     await database.raw('truncate table playlists cascade');
     await database.raw('truncate table favorites cascade');
 
-    await database('playlists').insert({ "title": "Coding Vibes" }, 'id');
     let favoriteData_1 = {
       "title": "We Will Rock You",
       "artistName": "Queen",
@@ -25,6 +24,7 @@ describe('Test the Playlists path', () => {
       "genre": "Rock",
       "rating": 100
     }
+    await database('playlists').insert({ title: "Coding Vibes" }, 'id');
     await database('favorites').insert(favoriteData_1, 'id');
     await database('favorites').insert(favoriteData_2, 'id');
   });
