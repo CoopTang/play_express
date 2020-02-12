@@ -16,22 +16,17 @@ describe('Test the Playlists path', () => {
       "title": "We Will Rock You",
       "artistName": "Queen",
       "genre": "Rock",
-      "rating": 88
+      "rating": 81
     }
-    let favoriteData_2 = {
-      "title": "We are the Champions",
-      "artistName": "Queen",
-      "genre": "Rock",
-      "rating": 100
-    }
+
     await database('playlists').insert({ title: "Coding Vibes" }, 'id');
     await database('favorites').insert(favoriteData_1, 'id');
-    await database('favorites').insert(favoriteData_2, 'id');
   });
 
   afterEach(() => {
     database.raw('truncate table favorites cascade');
     database.raw('truncate table playlists cascade');
+    database.raw('truncate table playlist_favorites cascade');
   });
 
   describe('Test Favorite Creation', () => {
