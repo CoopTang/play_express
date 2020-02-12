@@ -114,7 +114,7 @@ describe('Test the Playlists path', () => {
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveProperty('id');
       expect(res.body).toHaveProperty('title');
-      expect(res.body.title).toBe('I hate running')
+      expect(res.body.title).toBe('Coding Vibes')
       expect(res.body).toHaveProperty('createdAt');
       expect(res.body).toHaveProperty('updatedAt');
       expect(res.body).toHaveProperty('songCount');
