@@ -37,6 +37,7 @@ describe('Test the Playlists path', () => {
         "genre": "Rock",
         "rating": 30
       }
+      await database('playlists').insert({ "title": "No Favorites" }, 'id');
       const playlists = await database('playlists').select()
       const favorite1 = await database('favorites').insert(favoriteData_1, 'id');
       const favorite2 = await database('favorites').insert(favoriteData_2, 'id');
@@ -54,9 +55,10 @@ describe('Test the Playlists path', () => {
       // Ensure the same order for testing
       res.body.sort((a, b) => (a.id > b.id) ? 1 : -1)
         
+      console.log(res.body)
         
       expect(res.statusCode).toBe(200);
-      expect(res.body.length).toBe(2);
+      expect(res.body.length).toBe(3);
       expect(res.body[0]).toHaveProperty('id');
       expect(res.body[0]).toHaveProperty('title');
       expect(res.body[0]).toHaveProperty('songCount');
@@ -64,9 +66,31 @@ describe('Test the Playlists path', () => {
       expect(res.body[0]).toHaveProperty('songAvgRating');
       expect(res.body[0].songAvgRating).toBe(27.5);
       expect(res.body[0]).toHaveProperty('favorites');
+      expect(res.body[0].favorites.length).toBe(2);
       expect(res.body[0].title).toBe('Coding Vibes');
       expect(res.body[0]).toHaveProperty('createdAt');
       expect(res.body[0]).toHaveProperty('updatedAt');
+
+      res.body[0].favorites.sort((a, b) => (a.id > b.id) ? 1 : -1)
+      expect(res.body[0].favorites[0]).toHaveProperty('id');
+      expect(res.body[0].favorites[0]).toHaveProperty('title');
+      expect(res.body[0].favorites[0].title).toBe('We Will Rock You');
+      expect(res.body[0].favorites[0]).toHaveProperty('artistName');
+      expect(res.body[0].favorites[0].artistName).toBe('Queen');
+      expect(res.body[0].favorites[0]).toHaveProperty('genre');
+      expect(res.body[0].favorites[0].genre).toBe('Rock');
+      expect(res.body[0].favorites[0]).toHaveProperty('rating');
+      expect(res.body[0].favorites[0].rating).toBe(25);
+
+      expect(res.body[0].favorites[1]).toHaveProperty('id');
+      expect(res.body[0].favorites[1]).toHaveProperty('title');
+      expect(res.body[0].favorites[1].title).toBe('We are the Champions');
+      expect(res.body[0].favorites[1]).toHaveProperty('artistName');
+      expect(res.body[0].favorites[1].artistName).toBe('Queen');
+      expect(res.body[0].favorites[1]).toHaveProperty('genre');
+      expect(res.body[0].favorites[1].genre).toBe('Rock');
+      expect(res.body[0].favorites[1]).toHaveProperty('rating');
+      expect(res.body[0].favorites[1].rating).toBe(30);
       
       expect(res.body[1]).toHaveProperty('id');
       expect(res.body[1]).toHaveProperty('title');
@@ -75,9 +99,32 @@ describe('Test the Playlists path', () => {
       expect(res.body[1]).toHaveProperty('songAvgRating');
       expect(res.body[1].songAvgRating).toBe(25.0);
       expect(res.body[1]).toHaveProperty('favorites');
+      expect(res.body[1].favorites.length).toBe(1);
       expect(res.body[1].title).toBe('Workout Mix');
       expect(res.body[1]).toHaveProperty('createdAt');
       expect(res.body[1]).toHaveProperty('updatedAt');
+
+      expect(res.body[1].favorites[0]).toHaveProperty('id');
+      expect(res.body[1].favorites[0]).toHaveProperty('title');
+      expect(res.body[1].favorites[0].title).toBe('We Will Rock You');
+      expect(res.body[1].favorites[0]).toHaveProperty('artistName');
+      expect(res.body[1].favorites[0].artistName).toBe('Queen');
+      expect(res.body[1].favorites[0]).toHaveProperty('genre');
+      expect(res.body[1].favorites[0].genre).toBe('Rock');
+      expect(res.body[1].favorites[0]).toHaveProperty('rating');
+      expect(res.body[1].favorites[0].rating).toBe(25);
+      
+      expect(res.body[2]).toHaveProperty('id');
+      expect(res.body[2]).toHaveProperty('title');
+      expect(res.body[2]).toHaveProperty('songCount');
+      expect(res.body[2].songCount).toBe(0)
+      expect(res.body[2]).toHaveProperty('songAvgRating');
+      expect(res.body[2].songAvgRating).toBe(0);
+      expect(res.body[2]).toHaveProperty('favorites');
+      expect(res.body[2].favorites.length).toBe(0);
+      expect(res.body[2].title).toBe('No Favorites');
+      expect(res.body[2]).toHaveProperty('createdAt');
+      expect(res.body[2]).toHaveProperty('updatedAt');
     });
   });
 
