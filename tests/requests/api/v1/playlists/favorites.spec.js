@@ -149,6 +149,26 @@ describe('Test the Playlists path', () => {
 
       expect(res.statusCode).toBe(400)
       expect(res.body.message).toBe("ID must be a number!")
-    })
+    });
+
+    it('can return with no favorites', async () => {
+      let playlist   = await database('playlists').select().first()
+      const res = await request(app)
+        .get(`/api/v1/playlists/${playlist.id}/favorites`)
+
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body).toHaveProperty('id');
+      expect(res.body).toHaveProperty('title');
+      expect(res.body.title).toBe('Coding Vibes')
+      expect(res.body).toHaveProperty('createdAt');
+      expect(res.body).toHaveProperty('updatedAt');
+      expect(res.body).toHaveProperty('songCount');
+      expect(res.body.songCount).toBe(0)
+      expect(res.body).toHaveProperty('songAvgRating');
+      expect(res.body.songAvgRating).toBe(0)
+      expect(res.body).toHaveProperty('favorites');
+      expect(res.body.favorites).toEqual([])
+    });
   });
 });
