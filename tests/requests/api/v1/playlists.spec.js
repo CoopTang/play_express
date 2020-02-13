@@ -48,9 +48,13 @@ describe('Test the Playlists path', () => {
       await database('playlist_favorites')
         .insert({playlistId: playlists[1].id, favoriteId: favorite1[0]});
 
-      const res = await request(app)
+      let res = await request(app)
         .get("/api/v1/playlists");
 
+      // Ensure the same order for testing
+      res.body.sort((a, b) => (a.id > b.id) ? 1 : -1)
+        
+        
       expect(res.statusCode).toBe(200);
       expect(res.body.length).toBe(2);
       expect(res.body[0]).toHaveProperty('id');
